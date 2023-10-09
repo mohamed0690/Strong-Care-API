@@ -18,7 +18,7 @@ export const deleteFilesInDirectory = (directoryPath) => {
 const configureMulter = (folderName) => {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, `uploads/${folderName}`);
+      cb(null, `./uploads/${folderName}`);
     },
     filename: (req, file, cb) => {
       const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);

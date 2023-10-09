@@ -51,7 +51,7 @@ export const emailTemplate = (
                                             style="display: block;font-size: 13px; margin: 0 0 4px; color:rgba(0,0,0,.64); font-weight:normal;">Email Address</strong>${email}
                                     </p>
 
-                                    <a href="http://localhost:3000/api/v1/confirmEmail/${token}" target="_blank"
+                                    <a href="https://strongcare-api.onrender.com/api/v1/confirmEmail/${token}" target="_blank"
                                         style="background:#20e277;text-decoration:none !important; display:inline-block; font-weight:500; margin-top:24px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Verify Email</a>
                                 </td>
                             </tr>

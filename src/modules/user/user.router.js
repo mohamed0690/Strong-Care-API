@@ -47,8 +47,8 @@ userRouter.route("/addAdmin").post(
 userRouter
   .route("/:id")
   .get(
-    // authentication,
-    // authorization(Role.ADMIN, Role.COMPENSATION_DEPART, Role.REQUESTS_DEPART),
+    authentication,
+    authorization(Role.ADMIN, Role.COMPENSATION_DEPART, Role.REQUESTS_DEPART),
     validation(getUserSchema),
     getUser
   )

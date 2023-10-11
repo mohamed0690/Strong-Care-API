@@ -7,7 +7,7 @@ import path from "path";
 export const deleteFilesInDirectory = (directoryPath) => {
   fs.readdir(directoryPath, (err, files) => {
     for (const file of files) {
-      const filePath = path.join(directoryPath, file);
+      const filePath = path.join(`./${directoryPath}`, file);
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }
@@ -41,7 +41,7 @@ const configureMulter = (folderName) => {
 };
 
 export const uploadSingleFile = (fieldName, folderName) =>
-  configureMulter(folderName).single(fieldName);
+  configureMulter(`./${folderName}`).single(fieldName);
 
 export const uploadMixFile = (arrayOfFields, folderName) =>
-  configureMulter(folderName).fields(arrayOfFields);
+  configureMulter(`./${folderName}`).fields(arrayOfFields);

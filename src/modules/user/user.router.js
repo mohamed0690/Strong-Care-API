@@ -39,7 +39,9 @@ userRouter
 userRouter.route("/addAdmin").post(
   // authentication,
   // authorization(Role.ADMIN),
-  uploadSingleFile("profileImg", "users"),
+  // uploadSingleFile("profileImg", "users")
+
+  uploadMixFile([{ name: "profileImg", maxCount: 1 }]),
   validation(createAdminUserSchema),
   createUser
 );
@@ -60,7 +62,8 @@ userRouter
   )
   .put(
     // authentication,
-    uploadSingleFile("profileImg", "users"),
+    // uploadSingleFile("profileImg", "users"),
+    uploadMixFile([{ name: "profileImg", maxCount: 1 }], "companies"),
     validation(updateUserSchema),
     updateUser
   )

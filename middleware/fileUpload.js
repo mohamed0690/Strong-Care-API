@@ -40,8 +40,8 @@ const configureMulter = (folderName) => {
   return multer({ storage, fileFilter });
 };
 
-export const uploadSingleFile = (fieldName, folderName) =>
-  configureMulter(`./${folderName}`).single(fieldName);
+// export const uploadSingleFile = (fieldName, folderName) =>
+//   configureMulter(`./${folderName}`).single(fieldName);
 
 export const uploadMixFile = (arrayOfFields, folderName) =>
   configureMulter(`./${folderName}`).fields(arrayOfFields);

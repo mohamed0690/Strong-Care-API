@@ -67,8 +67,6 @@ export const uploadAndUpdateImages = async (
 ) => {
   const results = [];
   for (const fieldName of imageFieldNames) {
-    console.log("🚀 ~ file: cloudinaryAPI.js:70 ~ fieldName:", fieldName);
-
     const file = req.files[fieldName];
     if (file && file.length > 0) {
       for (let f of file) {

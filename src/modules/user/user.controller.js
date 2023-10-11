@@ -33,7 +33,6 @@ export const createUser = catchAsyncError(async (req, res, next) => {
   if (req.body) {
     const data = await uploadAndUpdateImage(req, "profileImg", "users");
     req.body.profileImg = { url: data.secure_url, publicId: data.public_id };
-    req.body.verifiedPhone = true;
     createRecord(modelName, User, req, res);
     sendVerificationEmail(email);
   }

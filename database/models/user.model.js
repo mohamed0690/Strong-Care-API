@@ -68,21 +68,5 @@ userSchema.pre("save", function (next) {
   }
   next();
 });
-userSchema.pre("updateOne", function (next) {
-  const updateQuery = this.getUpdate();
-  if (
-    updateQuery.$set &&
-    (updateQuery.$set.verifiedEmail || updateQuery.$set.verifiedPhone)
-  ) {
-    this.update({
-      $set: {
-        verified:
-          updateQuery.$set.verifiedEmail && updateQuery.$set.verifiedPhone,
-      },
-    });
-  }
-
-  next();
-});
 
 export const User = mongoose.model("User", userSchema);

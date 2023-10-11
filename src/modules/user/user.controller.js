@@ -31,12 +31,11 @@ export const createUser = catchAsyncError(async (req, res, next) => {
       .json({ message: "User already exists" });
   }
 
-  const imageFields = ["profileImg"];
-  await updateImageUrls(req, imageFields, "users");
-
   if (req.body) {
-    const data = await uploadAndUpdateImage(req, "profileImg", "users");
-    req.body.profileImg = { url: data.secure_url, publicId: data.public_id };
+    const imageFields = ["profileImg"];
+    await updateImageUrls(req, imageFields, "users");
+    // const data = await uploadAndUpdateImage(req, "profileImg", "users");
+    // req.body.profileImg = { url: data.secure_url, publicId: data.public_id };
     createRecord(modelName, User, req, res);
     sendVerificationEmail(email);
   }

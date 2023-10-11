@@ -7,7 +7,7 @@ import path from "path";
 export const deleteFilesInDirectory = (directoryPath) => {
   fs.readdir(directoryPath, (err, files) => {
     for (const file of files) {
-      const filePath = path.join(directoryPath, file);
+      const filePath = path.join(`directoryPath}`, file);
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }

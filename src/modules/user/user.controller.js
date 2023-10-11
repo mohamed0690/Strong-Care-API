@@ -16,13 +16,12 @@ import {
 import { generateTokenExpiredAfterTenMins } from "../../../utils/generateToken.js";
 import { getAllWithApiFeatures } from "../../../utils/getAllWithApiFeatures.js";
 import { sendEmail } from "../../../utils/sendEmail.js";
-import { updateImageUrls } from "../../../utils/updateImageUrl.js";
 
 const modelName = "User";
 
 export const createUser = catchAsyncError(async (req, res, next) => {
   const { email } = req.body;
-  // req.body.profileImg = req.file.filename;
+  req.body.profileImg = req.file.filename;
 
   const existingUser = await User.findOne({ email });
   if (existingUser) {
@@ -32,10 +31,8 @@ export const createUser = catchAsyncError(async (req, res, next) => {
   }
 
   if (req.body) {
-    const imageFields = ["profileImg"];
-    await updateImageUrls(req, imageFields, "users");
-    // const data = await uploadAndUpdateImage(req, "profileImg", "users");
-    // req.body.profileImg = { url: data.secure_url, publicId: data.public_id };
+    const data = await uploadAndUpdateImage(req, "profileImg", "users");
+    req.body.profileImg = { url: data.secure_url, publicId: data.public_id };
     createRecord(modelName, User, req, res);
     sendVerificationEmail(email);
   }
@@ -51,12 +48,11 @@ export const updateUser = catchAsyncError(async (req, res, next) => {
     return res.json({ message: "User not found" });
   }
 
-  // req.body.profileImg = req.file.filename;
-  const imageFields = ["profileImg"];
-  await updateImageUrls(req, imageFields, "users");
+  req.body.profileImg = req.file.filename;
 
-  // const data = await uploadAndUpdateImage(req, "profileImg", "users");
-  // req.body.profileImg = { url: data.secure_url, publicId: data.public_id };
+  const data = await uploadAndUpdateImage(req, "profileImg", "users");
+  req.body.profileImg = { url: data.secure_url, publicId: data.public_id };
+
   const publicIdsToDelete = [user.profileImg.publicId];
   await deletePreviousImages(publicIdsToDelete);
   updateRecord(modelName, User, req, res);

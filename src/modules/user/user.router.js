@@ -21,17 +21,14 @@ import {
 import { authentication } from "../../../middleware/authentication.js";
 import { authorization } from "../../../middleware/authorization.js";
 import { Role } from "../../../enums/role.js";
-import { uploadMixFile } from "../../../middleware/fileUpload.js";
-// import { uploadSingleFile } from "../../../middleware/fileUpload.js";
+import { uploadSingleFile } from "../../../middleware/fileUpload.js";
 
 const userRouter = Router();
 
 userRouter
   .route("/")
   .post(
-    // uploadSingleFile("profileImg", "users"),
-    uploadMixFile([{ name: "profileImg", maxCount: 1 }], "users"),
-
+    uploadSingleFile("profileImg", "users"),
     validation(createUserSchema),
     createUser
   )
@@ -42,9 +39,7 @@ userRouter
 userRouter.route("/addAdmin").post(
   // authentication,
   // authorization(Role.ADMIN),
-  // uploadSingleFile("profileImg", "users")
-
-  uploadMixFile([{ name: "profileImg", maxCount: 1 }], "users"),
+  uploadSingleFile("profileImg", "users"),
   validation(createAdminUserSchema),
   createUser
 );
@@ -65,8 +60,7 @@ userRouter
   )
   .put(
     // authentication,
-    // uploadSingleFile("profileImg", "users"),
-    uploadMixFile([{ name: "profileImg", maxCount: 1 }], "users"),
+    uploadSingleFile("profileImg", "users"),
     validation(updateUserSchema),
     updateUser
   )

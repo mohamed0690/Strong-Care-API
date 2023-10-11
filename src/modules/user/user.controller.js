@@ -52,7 +52,6 @@ export const updateUser = catchAsyncError(async (req, res, next) => {
 
   const data = await uploadAndUpdateImage(req, "profileImg", "users");
   req.body.profileImg = { url: data.secure_url, publicId: data.public_id };
-
   const publicIdsToDelete = [user.profileImg.publicId];
   await deletePreviousImages(publicIdsToDelete);
   updateRecord(modelName, User, req, res);

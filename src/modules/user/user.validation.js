@@ -45,7 +45,6 @@ export const updateUserSchema = Joi.object({
   id: Joi.string().hex().length(24).required(),
   firstName: Joi.string().min(2).max(15).required(),
   lastName: Joi.string().min(2).max(15).required(),
-  password: Joi.string().min(5).max(25),
   profileImg: { url: Joi.string(), publicId: Joi.string() },
 
   location: createLocationSchema,

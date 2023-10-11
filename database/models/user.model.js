@@ -62,11 +62,26 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
 userSchema.pre("save", function (next) {
   if (this.isModified("password")) {
     this.password = bcrypt.hashSync(this.password, 10);
   }
+  next();
+});
+userSchema.pre("updateOne", function (next) {
+  const updateQuery = this.getUpdate();
+  if (
+    updateQuery.$set &&
+    (updateQuery.$set.verifiedEmail || updateQuery.$set.verifiedPhone)
+  ) {
+    this.update({
+      $set: {
+        verified:
+          updateQuery.$set.verifiedEmail && updateQuery.$set.verifiedPhone,
+      },
+    });
+  }
+
   next();
 });
 

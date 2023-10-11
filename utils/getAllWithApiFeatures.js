@@ -19,9 +19,9 @@ export const getAllWithApiFeatures = (Model, isPopulate, populateField) =>
     const count = await Model.countDocuments(apiFeatures.query);
 
     res.json({
-      message: "Success",
+      message: "success",
       page: apiFeatures.page,
-      count: count, // Display the count
-      results: results, // Corrected "result" to "results"
+      count: count,
+      data: results,
     });
   });

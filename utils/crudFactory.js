@@ -1,104 +1,50 @@
 import { HttpStatus } from "../enums/httpStatus.js";
-import { AppError } from "./appError.js";
 
-function successResponse(res, modelName, data, message = "Success") {
-  res.json({ message, [modelName]: data });
-}
+const sendSuccessResponse = (res, message, data) => {
+  res.send({ message, data });
+};
 
-function errorResponse(
-  res,
-  errorMessage,
-  statusCode = HttpStatus.InternalServerError
-) {
-  res.status(statusCode).json({ error: errorMessage });
-}
+const sendNotFoundResponse = (res, modelName) => {
+  res.status(HttpStatus.NotFound).send({ message: `${modelName} not found` });
+};
 
-export async function createRecord(modelName, modelInstance, req, res) {
-  try {
-    const record = await modelInstance(req.body).save();
+export const createRecord = async (modelName, modelInstance, req, res) => {
+  const record = await modelInstance(req.body).save();
+  sendSuccessResponse(res, "success", record);
+};
 
-    successResponse(res, modelName, record, `${modelName} added successfully`);
-  } catch (error) {
-    console.log(error);
-    errorResponse(
-      res,
-      error instanceof AppError ? error.message : "Internal Server Error",
-      HttpStatus.BadRequest
-    );
+export const getAllRecords = async (modelName, modelInstance, res) => {
+  const objects = await modelInstance.find();
+  sendSuccessResponse(res, "success", objects);
+};
+
+export const updateRecord = async (modelName, modelInstance, req, res) => {
+  const updatedModel = await modelInstance.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+  if (!updatedModel) {
+    sendNotFoundResponse(res, modelName);
+  } else {
+    sendSuccessResponse(res, "success", updatedModel);
   }
-}
+};
 
-export async function getAllRecords(modelName, modelInstance, res) {
-  try {
-    const objects = await modelInstance.find();
-    successResponse(res, modelName, objects);
-  } catch (error) {
-    console.log(error);
-    errorResponse(res, "Internal Server Error");
+export const deleteRecord = async (modelName, modelInstance, req, res) => {
+  const deletedObj = await modelInstance.findByIdAndDelete(req.params.id);
+  if (!deletedObj) {
+    sendNotFoundResponse(res, modelName);
+  } else {
+    sendSuccessResponse(res, "success", deletedObj);
   }
-}
+};
 
-export async function updateRecord(modelName, modelInstance, req, res) {
-  try {
-    const updatedModel = await modelInstance.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    if (!updatedModel) {
-      errorResponse(res, `${modelName} not found`, HttpStatus.NotFound);
-      return;
-    }
-    successResponse(
-      res,
-      modelName,
-      updatedModel,
-      `${modelName} updated successfully`
-    );
-  } catch (error) {
-    errorResponse(
-      res,
-      error instanceof AppError ? error.message : "Internal Server Error",
-      HttpStatus.BadRequest
-    );
+export const getRecord = async (modelName, modelInstance, req, res) => {
+  const selectedObj = await modelInstance.findById(req.params.id);
+  if (!selectedObj) {
+    sendNotFoundResponse(res, modelName);
+  } else {
+    sendSuccessResponse(res, "success", selectedObj);
   }
-}
-
-export async function deleteRecord(modelName, modelInstance, req, res) {
-  try {
-    const deletedModel = await modelInstance.findByIdAndDelete(req.params.id);
-    if (!deletedModel) {
-      errorResponse(res, `${modelName} not found`, HttpStatus.NotFound);
-      return;
-    }
-    successResponse(
-      res,
-      modelName,
-      deletedModel,
-      `${modelName} deleted successfully`
-    );
-  } catch (error) {
-    errorResponse(
-      res,
-      error instanceof AppError ? error.message : "Internal Server Error",
-      HttpStatus.BadRequest
-    );
-  }
-}
-
-export async function getRecord(modelName, modelInstance, req, res) {
-  try {
-    const selectedModel = await modelInstance.findById(req.params.id);
-    if (!selectedModel) {
-      errorResponse(res, `${modelName} not found`, HttpStatus.NotFound);
-      return;
-    }
-    successResponse(res, modelName, selectedModel);
-  } catch (error) {
-    errorResponse(
-      res,
-      error instanceof AppError ? error.message : "Internal Server Error",
-      HttpStatus.BadRequest
-    );
-  }
-}
+};

@@ -47,8 +47,8 @@ userRouter.route("/addAdmin").post(
 userRouter
   .route("/:id")
   .get(
-    authentication,
-    authorization(Role.ADMIN, Role.COMPENSATION_DEPART, Role.REQUESTS_DEPART),
+    // authentication,
+    // authorization(Role.ADMIN, Role.COMPENSATION_DEPART, Role.REQUESTS_DEPART),
     validation(getUserSchema),
     getUser
   )
@@ -59,19 +59,21 @@ userRouter
     deleteUser
   )
   .put(
-    authentication,
+    // authentication,
     uploadSingleFile("profileImg", "users"),
     validation(updateUserSchema),
     updateUser
   )
   .patch(
-    authentication,
+    // authentication,
     validation(changeUserPasswordSchema),
     changeUserPassword
   );
 
-userRouter
-  .route("/changePhone/:id")
-  .patch(authentication, validation(changeUserPhoneSchema), changeUserPhone);
+userRouter.route("/changePhone/:id").patch(
+  // authentication,
+  validation(changeUserPhoneSchema),
+  changeUserPhone
+);
 
 export default userRouter;

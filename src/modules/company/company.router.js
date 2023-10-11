@@ -17,7 +17,7 @@ import {
 } from "./company.controller.js";
 import {
   uploadMixFile,
-  uploadSingleFile,
+  // uploadSingleFile,
 } from "../../../middleware/fileUpload.js";
 
 const companyRouter = Router();

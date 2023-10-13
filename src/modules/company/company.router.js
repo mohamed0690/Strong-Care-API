@@ -15,10 +15,7 @@ import {
   getCompany,
   updateCompany,
 } from "./company.controller.js";
-import {
-  uploadMixFile,
-  // uploadSingleFile,
-} from "../../../middleware/fileUpload.js";
+import { uploadMixFile } from "../../../middleware/fileUpload.js";
 
 const companyRouter = Router();
 

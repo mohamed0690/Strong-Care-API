@@ -21,10 +21,7 @@ import {
 import { authentication } from "../../../middleware/authentication.js";
 import { authorization } from "../../../middleware/authorization.js";
 import { Role } from "../../../enums/role.js";
-import {
-  uploadMixFile,
-  uploadSingleFile,
-} from "../../../middleware/fileUpload.js";
+import { uploadMixFile } from "../../../middleware/fileUpload.js";
 
 const userRouter = Router();
 
@@ -35,7 +32,11 @@ userRouter
     validation(createUserSchema),
     createUser
   )
-  .get(authentication, authorization(Role.ADMIN), getAllUsers);
+  .get(
+    // authentication,
+    //  authorization(Role.ADMIN),
+    getAllUsers
+  );
 userRouter.route("/addAdmin").post(
   // authentication,
   // authorization(Role.ADMIN),

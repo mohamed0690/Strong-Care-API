@@ -1,31 +1,27 @@
 import Joi from "joi";
 import { Role } from "../../../enums/role.js";
 
-export const createLocationSchema = Joi.object({
-  latitude: Joi.string().required(),
-  longitude: Joi.string().required(),
-});
-
 export const createUserSchema = Joi.object({
   firstName: Joi.string().min(2).max(15).required(),
   lastName: Joi.string().min(2).max(15).required(),
   email: Joi.string().email().required(),
   phone: Joi.string(),
-  password: Joi.string().min(6).max(25).required(),
+  password: Joi.string().min(8).max(25).required(),
   required: true,
   role: Joi.string().pattern(
     new RegExp(`^${Role.COMPANY}||${Role.INDIVIDUAL}$`)
   ),
 
   profileImg: { url: Joi.string(), publicId: Joi.string() },
-  location: createLocationSchema,
+  latitude: { type: String, required: true },
+  longitude: { type: String, required: true },
 });
 export const createAdminUserSchema = Joi.object({
   firstName: Joi.string().min(2).max(15).required(),
   lastName: Joi.string().min(2).max(15).required(),
   email: Joi.string().email().required(),
   phone: Joi.string(),
-  password: Joi.string().min(6).max(25).required(),
+  password: Joi.string().min(8).max(25).required(),
   required: true,
   role: Joi.string().pattern(
     new RegExp(
@@ -33,7 +29,8 @@ export const createAdminUserSchema = Joi.object({
     )
   ),
   profileImg: { url: Joi.string(), publicId: Joi.string() },
-  location: createLocationSchema,
+  latitude: { type: String, required: true },
+  longitude: { type: String, required: true },
 });
 export const getUserSchema = Joi.object({
   id: Joi.string().hex().length(24).required(),
@@ -44,8 +41,8 @@ export const updateUserSchema = Joi.object({
   firstName: Joi.string().min(2).max(15).required(),
   lastName: Joi.string().min(2).max(15).required(),
   profileImg: { url: Joi.string(), publicId: Joi.string() },
-
-  location: createLocationSchema,
+  latitude: { type: String, required: true },
+  longitude: { type: String, required: true },
 });
 export const deleteUserSchema = Joi.object({
   id: Joi.string().hex().length(24).required(),

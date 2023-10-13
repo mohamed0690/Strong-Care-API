@@ -21,7 +21,12 @@ import { updateImageUrls } from "../../../utils/updateImageUrl.js";
 const modelName = "User";
 
 export const createUser = catchAsyncError(async (req, res, next) => {
-  const { email } = req.body;
+  const { email, latitude, longitude } = req.body;
+  if (latitude && longitude)
+    req.body.location = {
+      latitude,
+      longitude,
+    };
   // req.body.profileImg = req.file.filename;
 
   const existingUser = await User.findOne({ email });

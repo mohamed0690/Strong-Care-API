@@ -31,20 +31,14 @@ const userRouter = Router();
 userRouter
   .route("/")
   .post(
-    // uploadSingleFile("profileImg", "users"),
     uploadMixFile([{ name: "profileImg", maxCount: 1 }], "users"),
-
     validation(createUserSchema),
     createUser
   )
-  .get(
-    // authentication, authorization(Role.ADMIN),
-    getAllUsers
-  );
+  .get(authentication, authorization(Role.ADMIN), getAllUsers);
 userRouter.route("/addAdmin").post(
   // authentication,
   // authorization(Role.ADMIN),
-  // uploadSingleFile("profileImg", "users"),
   uploadMixFile([{ name: "profileImg", maxCount: 1 }], "users"),
   validation(createAdminUserSchema),
   createUser

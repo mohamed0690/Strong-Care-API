@@ -1,7 +1,5 @@
-export const emailTemplate = (
-  token,
-  email
-) => `<div marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #f2f3f8;" leftmargin="0">
+export const emailTemplate = (token, email) => `
+<div marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #f2f3f8;" leftmargin="0">
 <style type="text/css">
     a:hover {
         text-decoration: underline !important;
@@ -38,21 +36,21 @@ export const emailTemplate = (
                                 <td style="padding:0 35px;">
                                     <h1
                                         style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
-                                        Verify Your Email
+                                        تأكيد عنوان بريدك الإلكتروني
                                     </h1>
                                     <p style="font-size:15px; color:#455056; margin:8px 0 0; line-height:24px;">
-                                        Thank you for signing up with Strong Care. To complete your registration, please click the button below to verify your email address.
+                                        شكرًا لتسجيلك مع Strong Care. لإتمام عملية التسجيل الخاصة بك، يرجى النقر على الزر أدناه لتأكيد عنوان بريدك الإلكتروني.
                                     </p>
                                     <span
                                         style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                     <p
                                         style="color:#455056; font-size:18px;line-height:20px; margin:0; font-weight: 500;">
                                         <strong
-                                            style="display: block;font-size: 13px; margin: 0 0 4px; color:rgba(0,0,0,.64); font-weight:normal;">Email Address</strong>${email}
+                                            style="display: block;font-size: 13px; margin: 0 0 4px; color:rgba(0,0,0,.64); font-weight:normal;">عنوان البريد الإلكتروني</strong>${email}
                                     </p>
 
                                     <a href="https://strongcare-api.onrender.com/api/v1/confirmEmail/${token}" target="_blank"
-                                        style="background:#20e277;text-decoration:none !important; display:inline-block; font-weight:500; margin-top:24px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Verify Email</a>
+                                        style="background:#20e277;text-decoration:none !important; display:inline-block; font-weight:500; margin-top:24px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">تأكيد البريد الإلكتروني</a>
                                 </td>
                             </tr>
                             <tr>
@@ -80,4 +78,4 @@ export const emailTemplate = (
 </table>
 <!--/100% body table-->
 </div>
-`;
+  `;

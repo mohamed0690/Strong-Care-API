@@ -2,10 +2,8 @@ import Joi from "joi";
 import { Role } from "../../../enums/role.js";
 
 export const createLocationSchema = Joi.object({
-  street: Joi.string().required(),
-  city: Joi.string().required(),
-  state: Joi.string().required(),
-  postalCode: Joi.string().required(),
+  latitude: Joi.string().required(),
+  longitude: Joi.string().required(),
 });
 
 export const createUserSchema = Joi.object({

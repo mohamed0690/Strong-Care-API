@@ -78,8 +78,8 @@ export const deleteCompany = async (req, res) => {
   ];
   await deletePreviousImages(publicIdsToDelete);
   deleteRecord(modelName, Company, req, res);
-  req.params.id = company.user;
-  if (req.params.id) deleteRecord("User", User, req, res);
+
+  if (company.user) await User.findOneAndDelete({ _id: company.user });
 };
 
 export const getCompany = async (req, res) => {

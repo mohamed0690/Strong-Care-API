@@ -13,8 +13,8 @@ export const createUserSchema = Joi.object({
   ),
 
   profileImg: { url: Joi.string(), publicId: Joi.string() },
-  latitude: { type: String, required: true },
-  longitude: { type: String, required: true },
+  latitude: Joi.string().required(),
+  longitude: Joi.string().required(),
 });
 export const createAdminUserSchema = Joi.object({
   firstName: Joi.string().min(2).max(15).required(),
@@ -29,8 +29,8 @@ export const createAdminUserSchema = Joi.object({
     )
   ),
   profileImg: { url: Joi.string(), publicId: Joi.string() },
-  latitude: { type: String, required: true },
-  longitude: { type: String, required: true },
+  latitude: Joi.string().required(),
+  longitude: Joi.string().required(),
 });
 export const getUserSchema = Joi.object({
   id: Joi.string().hex().length(24).required(),
@@ -41,8 +41,8 @@ export const updateUserSchema = Joi.object({
   firstName: Joi.string().min(2).max(15).required(),
   lastName: Joi.string().min(2).max(15).required(),
   profileImg: { url: Joi.string(), publicId: Joi.string() },
-  latitude: { type: String, required: true },
-  longitude: { type: String, required: true },
+  latitude: Joi.string().required(),
+  longitude: Joi.string().required(),
 });
 export const deleteUserSchema = Joi.object({
   id: Joi.string().hex().length(24).required(),

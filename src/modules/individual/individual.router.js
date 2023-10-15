@@ -14,6 +14,9 @@ import {
   updateIndividual,
 } from "./individual.controller.js";
 import { uploadMixFile } from "../../../middleware/fileUpload.js";
+import { authentication } from "../../../middleware/authentication.js";
+import { authorization } from "../../../middleware/authorization.js";
+import { Role } from "../../../enums/role.js";
 
 const individualRouter = Router();
 
@@ -34,13 +37,14 @@ individualRouter
     validation(createIndividualSchema),
     createIndividual
   )
-  .get(getAllIndividuals);
+  .get(authentication, authorization(Role.ADMIN || Role.REQUESTS_DEPART || Role.COMPENSATION_DEPART), getAllIndividuals);
 
 individualRouter
   .route("/:id")
-  .get(validation(getIndividualSchema), getIndividual)
-  .delete(validation(deleteIndividualSchema), deleteIndividual)
+  .get(authentication, validation(getIndividualSchema), getIndividual)
+  .delete(authentication, authorization(Role.ADMIN), validation(deleteIndividualSchema), deleteIndividual)
   .put(
+    authentication, authorization(Role.ADMIN || Role.COMPENSATION_DEPART),
     uploadMixFile(
       [
         { name: "identityImg", maxCount: 1 },

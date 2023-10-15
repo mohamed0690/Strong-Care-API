@@ -13,17 +13,20 @@ import {
   getDepartment,
   updateDepartment,
 } from "./department.controller.js";
+import { authentication } from "../../../middleware/authentication.js";
+import { authorization } from "../../../middleware/authorization.js";
+import { Role } from "../../../enums/role.js";
 
 const departmentRouter = Router();
 
 departmentRouter
   .route("/")
-  .post(validation(createDepartmentSchema), createDepartment)
-  .get(getAllDepartments);
+  .post(authentication, authorization(Role.ADMIN), validation(createDepartmentSchema), createDepartment)
+  .get(authentication, authorization(Role.ADMIN), getAllDepartments);
 
 departmentRouter
   .route("/:id")
-  .get(validation(getDepartmentSchema), getDepartment)
-  .delete(validation(deleteDepartmentSchema), deleteDepartment)
-  .put(validation(updateDepartmentSchema), updateDepartment);
+  .get(authentication, authorization(Role.ADMIN), validation(getDepartmentSchema), getDepartment)
+  .delete(authentication, authorization(Role.ADMIN), validation(deleteDepartmentSchema), deleteDepartment)
+  .put(authentication, authorization(Role.ADMIN), validation(updateDepartmentSchema), updateDepartment);
 export default departmentRouter;

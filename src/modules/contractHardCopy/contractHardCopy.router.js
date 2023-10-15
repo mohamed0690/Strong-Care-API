@@ -15,12 +15,16 @@ import {
   getContractHardCopy,
   updateContractHardCopy,
 } from "./contractHardCopy.controller.js";
+import { authorization } from "../../../middleware/authorization.js";
+import { Role } from "../../../enums/role.js";
+import { authentication } from "../../../middleware/authentication.js";
 
 const contractHardCopyRouter = Router();
 
 contractHardCopyRouter
   .route("/")
   .post(
+    authentication,
     uploadMixFile(
       [{ name: "contractHardCopyFile", maxCount: 1 }],
       "contractHardCopyFiles"
@@ -28,13 +32,18 @@ contractHardCopyRouter
     validation(createContractHardCopySchema),
     createContractHardCopy
   )
-  .get(getAllContractHardCopy);
+  .get(authentication,
+    authorization(Role.ADMIN), getAllContractHardCopy);
 
 contractHardCopyRouter
   .route("/:id")
-  .get(validation(getContractHardCopySchema), getContractHardCopy)
-  .delete(validation(deleteContractHardCopySchema), deleteContractHardCopy)
+  .get(authentication,
+    validation(getContractHardCopySchema), getContractHardCopy)
+  .delete(authentication,
+    authorization(Role.ADMIN), validation(deleteContractHardCopySchema), deleteContractHardCopy)
   .put(
+    authentication,
+    authorization(Role.COMPANY || Role.INDIVIDUAL),
     uploadMixFile(
       [{ name: "contractHardCopyFile", maxCount: 1 }],
       "contractHardCopyFiles"

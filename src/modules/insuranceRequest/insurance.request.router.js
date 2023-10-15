@@ -13,18 +13,21 @@ import {
   getInsuranceRequestSchema,
   updateInsuranceRequestSchema,
 } from "./insurance.request.validation.js";
+import { authentication } from "../../../middleware/authentication.js";
+import { authorization } from "../../../middleware/authorization.js";
+import { Role } from "../../../enums/role.js";
 
 const insuranceRequestRouter = Router();
 
 insuranceRequestRouter
   .route("/")
-  .post(validation(createInsuranceRequestSchema), createInsuranceRequest)
-  .get(getAllInsuranceRequests);
+  .post(authentication, authorization(Role.COMPANY || Role.INDIVIDUAL), validation(createInsuranceRequestSchema), createInsuranceRequest)
+  .get(authentication, authorization(Role.ADMIN || Role.REQUESTS_DEPART), getAllInsuranceRequests);
 
 insuranceRequestRouter
   .route("/:id")
-  .get(validation(getInsuranceRequestSchema), getInsuranceRequest)
-  .delete(validation(deleteInsuranceRequestSchema), deleteInsuranceRequest)
-  .put(validation(updateInsuranceRequestSchema), updateInsuranceRequest);
+  .get(authentication, authorization(Role.COMPANY || Role.INDIVIDUAL || Role.ADMIN || Role.REQUESTS_DEPART), validation(getInsuranceRequestSchema), getInsuranceRequest)
+  .delete(authentication, authorization(Role.ADMIN), validation(deleteInsuranceRequestSchema), deleteInsuranceRequest)
+  .put(authentication, authorization(Role.COMPANY || Role.INDIVIDUAL), validation(updateInsuranceRequestSchema), updateInsuranceRequest);
 
 export default insuranceRequestRouter;

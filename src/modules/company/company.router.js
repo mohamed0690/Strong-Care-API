@@ -16,6 +16,9 @@ import {
   updateCompany,
 } from "./company.controller.js";
 import { uploadMixFile } from "../../../middleware/fileUpload.js";
+import { Role } from "../../../enums/role.js";
+import { authorization } from "../../../middleware/authorization.js";
+import { authentication } from "../../../middleware/authentication.js";
 
 const companyRouter = Router();
 
@@ -32,12 +35,12 @@ companyRouter
     validation(createCompanySchema),
     createCompany
   )
-  .get(getAllCompanies);
+  .get(authentication, authorization(Role.ADMIN || Role.REQUESTS_DEPART || Role.COMPENSATION_DEPART), getAllCompanies);
 
 companyRouter
   .route("/:id")
-  .get(validation(getCompanySchema), getCompany)
-  .delete(validation(deleteCompanySchema), deleteCompany)
+  .get(authentication, authorization(Role.COMPANY, Role.ADMIN, Role.COMPENSATION_DEPART, Role.REQUESTS_DEPART), validation(getCompanySchema), getCompany)
+  .delete(authentication, authorization(Role.ADMIN), validation(deleteCompanySchema), deleteCompany)
   .put(
     uploadMixFile(
       [
@@ -49,5 +52,5 @@ companyRouter
     validation(updateCompanySchema),
     updateCompany
   )
-  .patch(validation(changeStateOfCompanySchema), changeStateOfCompany);
+  .patch(authentication, authorization(Role.ADMIN), validation(changeStateOfCompanySchema), changeStateOfCompany);
 export default companyRouter;

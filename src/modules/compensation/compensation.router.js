@@ -14,6 +14,9 @@ import {
   updateCompensation,
 } from "./compensation.controller.js";
 import { uploadMixFile } from "../../../middleware/fileUpload.js";
+import { authentication } from '../../../middleware/authentication.js';
+import { authorization } from '../../../middleware/authorization.js';
+import { Role } from "../../../enums/role.js";
 
 const compensationRouter = Router();
 
@@ -24,13 +27,14 @@ compensationRouter
     validation(createCompensationSchema),
     createCompensation
   )
-  .get(getAllCompensations);
+  .get(authentication, authorization(Role.ADMIN || Role.COMPENSATION_DEPART), getAllCompensations);
 
 compensationRouter
   .route("/:id")
-  .get(validation(getCompensationSchema), getCompensation)
-  .delete(validation(deleteCompensationSchema), deleteCompensation)
+  .get(authentication, authorization(Role.ADMIN || Role.COMPANY || Role.INDIVIDUAL || Role.COMPENSATION_DEPART), validation(getCompensationSchema), getCompensation)
+  .delete(authentication, authorization(Role.ADMIN), validation(deleteCompensationSchema), deleteCompensation)
   .put(
+    authentication, authorization(Role.ADMIN),
     uploadMixFile([{ name: "malfunctionImgs", maxCount: 8 }], "compensations"),
     validation(updateCompensationSchema),
     updateCompensation

@@ -18,7 +18,6 @@ export function init(app) {
   app.use("/api/v1/compensation", compensationRouter);
   app.use("/api/v1/users/company/contract", contractHardCopyRouter);
   app.use("/api/v1/users/company", companyRouter);
-
   app.use("/api/v1/auth", authRouter);
   app.use("/api/v1/users", userRouter);
 

@@ -91,7 +91,7 @@ export const changeStateOfCompany = async (req, res) => {
   const company = await Company.findById(id);
 
   if (!company) {
-    return next(new AppError("Company not found", HttpStatus.NotFound));
+    return res.json({ message: "Company not found" });
   }
 
   company.state = req.body.state;

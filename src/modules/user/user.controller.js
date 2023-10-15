@@ -27,7 +27,6 @@ export const createUser = catchAsyncError(async (req, res, next) => {
       latitude,
       longitude,
     };
-  // req.body.profileImg = req.file.filename;
 
   const existingUser = await User.findOne({ email });
   if (existingUser) {
@@ -37,8 +36,6 @@ export const createUser = catchAsyncError(async (req, res, next) => {
   }
 
   if (req.body) {
-    // const data = await uploadAndUpdateImage(req, "profileImg", "users");
-    // req.body.profileImg = { url: data.secure_url, publicId: data.public_id };
     const imageFields = ["profileImg"];
     await updateImageUrls(req, imageFields, "users");
     createRecord(modelName, User, req, res);
@@ -55,11 +52,6 @@ export const updateUser = catchAsyncError(async (req, res, next) => {
   if (!user) {
     return res.json({ message: "User not found" });
   }
-
-  // req.body.profileImg = req.file.filename;
-
-  // const data = await uploadAndUpdateImage(req, "profileImg", "users");
-  // req.body.profileImg = { url: data.secure_url, publicId: data.public_id };
 
   const imageFields = ["profileImg"];
   await updateImageUrls(req, imageFields, "users");

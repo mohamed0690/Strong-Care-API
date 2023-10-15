@@ -11,6 +11,8 @@ export const createInsuranceRequestSchema = Joi.object({
     .pattern(new RegExp(`^${InsuranceDuration.ONE}||${InsuranceDuration.TWO}$`))
     .required(),
   company: Joi.string().hex().length(24).required(),
+  deviceType: Joi.string().required(),
+  clientEmail: Joi.string().email(),
 });
 
 export const getInsuranceRequestSchema = Joi.object({
@@ -27,6 +29,8 @@ export const updateInsuranceRequestSchema = Joi.object({
   insuranceDuration: Joi.string()
     .pattern(new RegExp(`^${InsuranceDuration.ONE}||${InsuranceDuration.TWO}$`))
     .required(),
+  deviceType: Joi.string().required(),
+  clientEmail: Joi.string().email(),
   company: Joi.string().hex().length(24).required(),
 });
 

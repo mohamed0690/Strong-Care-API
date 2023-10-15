@@ -8,33 +8,44 @@ const userSchema = new mongoose.Schema(
     firstName: {
       type: String,
       trim: true,
-      minLength: [2, "firstName is too short"],
-      required: true,
+      minLength: [
+        2,
+        "First name is too short (minimum length is 2 characters).",
+      ],
+      required: [true, "First name is required."],
     },
     lastName: {
       type: String,
       trim: true,
-      minLength: [2, "lastName is too short"],
-      required: true,
+      minLength: [
+        2,
+        "Last name is too short (minimum length is 2 characters).",
+      ],
+      required: [true, "Last name is required."],
     },
     email: {
       type: String,
-      required: true,
-      unique: true,
+      required: [true, "Email is required."],
+      unique: [true, "Email is already in use."],
     },
     phone: {
       type: String,
-      required: true,
+      required: [true, "Phone number is required."],
     },
     password: {
       type: String,
-      required: true,
-      minLength: [8, "Password is too short"],
+      required: [true, "Password is required."],
+      minLength: [8, "Password is too short (minimum length is 8 characters)."],
     },
     changePasswordAt: Date,
     role: {
       type: String,
       enum: Object.values(Role),
+      required: [
+        true,
+        "Role is required and must be one of: " +
+          Object.values(Role).join(", "),
+      ],
     },
     profileImg: {
       url: {
@@ -45,6 +56,7 @@ const userSchema = new mongoose.Schema(
       publicId: { type: String },
     },
     location: {
+      _id: false,
       type: locationSchema,
     },
     verified: {

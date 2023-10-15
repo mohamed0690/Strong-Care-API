@@ -8,6 +8,7 @@ import departmentRouter from "./department/department.router.js";
 import individualRouter from "./individual/individual.router.js";
 import insuranceRequestRouter from "./insuranceRequest/insurance.request.router.js";
 import compensationRouter from "./compensation/compensation.router.js";
+import contractHardCopyRouter from "./contractHardCopy/contractHardCopy.router.js";
 
 export function init(app) {
   app.use("/api/v1/confirmEmail", confirmEmailRouter);
@@ -15,6 +16,7 @@ export function init(app) {
   app.use("/api/v1/users/individual", individualRouter);
   app.use("/api/v1/insuranceRequest", insuranceRequestRouter);
   app.use("/api/v1/compensation", compensationRouter);
+  app.use("/api/v1/users/company/contract", contractHardCopyRouter);
   app.use("/api/v1/users/company", companyRouter);
 
   app.use("/api/v1/auth", authRouter);

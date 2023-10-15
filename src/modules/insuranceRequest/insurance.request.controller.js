@@ -39,7 +39,7 @@ export const getAllInsuranceRequests = getAllWithApiFeatures(
   "company"
 );
 
-export const updateInsuranceRequest = async (req, res) => {
+export const updateInsuranceRequest =  catchAsyncError(async (req, res) => {
   const { id } = req.params;
   const insuranceRequest = await InsuranceRequest.findById(id);
 
@@ -48,7 +48,7 @@ export const updateInsuranceRequest = async (req, res) => {
   }
 
   updateRecord(modelName, InsuranceRequest, req, res);
-};
+});
 
 export const deleteInsuranceRequest = catchAsyncError(
   async (req, res, next) => {

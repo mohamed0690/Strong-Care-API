@@ -28,6 +28,8 @@ const userRouter = Router();
 userRouter
   .route("/")
   .post(
+    authentication,
+    authorization(Role.ADMIN),
     uploadMixFile([{ name: "profileImg", maxCount: 1 }], "users"),
     validation(createUserSchema),
     createUser

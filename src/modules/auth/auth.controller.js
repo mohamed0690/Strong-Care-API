@@ -21,7 +21,7 @@ export const signIn = catchAsyncError(async (req, res, next) => {
   }
 
   const token = generateToken({ id: user._id, role: user.role });
-  res.json({ message: "Success", token });
+  res.json({ message: "success", token });
 });
 
 export const resetPassword = catchAsyncError(async (req, res, next) => {
@@ -36,4 +36,29 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
   );
   await sendEmail({ recipientEmail: email, emailSubject, emailContent });
   return res.status(200).send({ message: "success" });
+});
+
+export const signUp = catchAsyncError(async (req, res, next) => {
+  const { email, latitude, longitude } = req.body;
+  if (latitude && longitude)
+    req.body.location = {
+      latitude,
+      longitude,
+    };
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return res
+      .status(HttpStatus.Conflict)
+      .json({ message: "user already exists" });
+  }
+
+  if (req.body) {
+    const imageFields = ["profileImg"];
+    await updateImageUrls(req, imageFields, "users");
+    const user = await User(req.body).save();
+    const token = generateToken({ id: user._id, role: user.role });
+    res.json({ message: "success", token });
+    sendVerificationEmail(email);
+  }
 });

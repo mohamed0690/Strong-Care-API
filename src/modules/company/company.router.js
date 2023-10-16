@@ -25,6 +25,7 @@ const companyRouter = Router();
 companyRouter
   .route("/")
   .post(
+    authentication, authorization(Role.ADMIN || Role.COMPANY),
     uploadMixFile(
       [
         { name: "commercialRegisterImg", maxCount: 1 },

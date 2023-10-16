@@ -9,6 +9,7 @@ import {
 import { HttpStatus } from "../../../enums/httpStatus.js";
 import { sendEmail } from "../../../utils/sendEmail.js";
 import { resetPasswordTemplate } from "../../../utils/restPasswordTemplete.html.js";
+import { updateImageUrls } from "../../../utils/updateImageUrl.js";
 
 export const signIn = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
@@ -37,6 +38,14 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
   await sendEmail({ recipientEmail: email, emailSubject, emailContent });
   return res.status(200).send({ message: "success" });
 });
+const sendVerificationEmail = (email) => {
+  const emailSubject = "Verify Email Strong Care";
+  const emailContent = emailTemplate(
+    generateTokenExpiredAfterTenMins({ recipientEmail: email }),
+    email
+  );
+  sendEmail({ recipientEmail: email, emailSubject, emailContent });
+};
 
 export const signUp = catchAsyncError(async (req, res, next) => {
   const { email, latitude, longitude } = req.body;

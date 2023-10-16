@@ -10,6 +10,7 @@ import { HttpStatus } from "../../../enums/httpStatus.js";
 import { sendEmail } from "../../../utils/sendEmail.js";
 import { resetPasswordTemplate } from "../../../utils/restPasswordTemplete.html.js";
 import { updateImageUrls } from "../../../utils/updateImageUrl.js";
+import { emailTemplate } from "../../../utils/confirmEmailTemplete.html.js";
 
 export const signIn = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;

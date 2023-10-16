@@ -2,7 +2,6 @@ import Joi from "joi";
 import { State } from "../../../enums/State.js";
 export const createCompanySchema = Joi.object({
   country: Joi.string()
-    .alphanum()
     .required()
     .description("Country is required."),
   noCommercialRegister: Joi.string()
@@ -33,12 +32,10 @@ export const getCompanySchema = Joi.object({
 export const updateCompanySchema = Joi.object({
   id: Joi.string().hex().length(24).required(),
   country: Joi.string()
-    .alphanum()
     .required()
     .description("Country is required."),
   id: Joi.string().hex().length(24).required(),
   country: Joi.string()
-    .alphanum()
     .required()
     .description("Country is required."),
   noCommercialRegister: Joi.string()

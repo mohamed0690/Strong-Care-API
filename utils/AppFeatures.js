@@ -17,8 +17,8 @@ export class ApiFeature {
       page = 1;
     }
     this.page = page;
-    const skip = (page - 1) * 20;
-    this.query = this.query.skip(skip).limit(20);
+    const skip = (page - 1) * 200;
+    this.query = this.query.skip(skip).limit(200);
     return this;
   }
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { resetPassword, signIn, signUp } from "./auth.controller.js";
-import { resetPasswordSchema, signInSchema } from "./auth.validation.js";
+import { loginUserDate, resetPassword, signIn, signUp } from "./auth.controller.js";
+import { loginUserDateSchema, resetPasswordSchema, signInSchema } from "./auth.validation.js";
 import { validation } from "../../../middleware/validation.js";
 import { uploadMixFile } from "../../../middleware/fileUpload.js";
 import { createUserSchema } from "../user/user.validation.js";
@@ -15,9 +15,13 @@ authRouter
     validation(createUserSchema),
     signUp
   );
+authRouter
+  .route("/loggeduserdata").get(validation(loginUserDateSchema), loginUserDate
+  )
 
 authRouter
   .route("/resetpassword")
   .patch(validation(resetPasswordSchema), resetPassword);
+
 
 export default authRouter;

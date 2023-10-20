@@ -35,6 +35,7 @@ userRouter
     createUser
   )
   .get(authentication, authorization(Role.ADMIN), getAllUsers);
+
 userRouter
   .route("/addAdmin")
   .post(

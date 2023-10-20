@@ -11,6 +11,8 @@ import { sendEmail } from "../../../utils/sendEmail.js";
 import { resetPasswordTemplate } from "../../../utils/restPasswordTemplete.html.js";
 import { updateImageUrls } from "../../../utils/updateImageUrl.js";
 import { emailTemplate } from "../../../utils/confirmEmailTemplete.html.js";
+import { Company } from "../../../database/models/company.model.js";
+import { Individual } from "../../../database/models/Individual.model.js";
 
 export const signIn = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
@@ -47,6 +49,28 @@ const sendVerificationEmail = (email) => {
   );
   sendEmail({ recipientEmail: email, emailSubject, emailContent });
 };
+export const loginUserDate = catchAsyncError(async (req, res, next) => {
+  const { id } = req.body;
+  let existingUser = await Company.findOne({ user: id })
+  if (existingUser) {
+    return res
+      .status(200)
+      .json({ message: "success", data: existingUser });
+  }
+  existingUser = await Individual.findOne({ user: id })
+  if (existingUser) {
+    return res
+      .status(200)
+      .json({ message: "success", data: existingUser });
+  }
+  existingUser = await User.findOne({ _id: id })
+  if (existingUser) {
+    return res
+      .status(200)
+      .json({ message: "success", data: existingUser });
+  }
+
+});
 
 export const signUp = catchAsyncError(async (req, res, next) => {
   const { email, latitude, longitude } = req.body;

@@ -10,4 +10,5 @@ export const confirmEmail = catchAsyncError(async (req, res) => {
   let email = decoded.recipientEmail;
   await User.findOneAndUpdate({ email }, { verifiedEmail: true });
   res.status(200).json({ message: "Email confirmation success" });
+  res.redirect("http://localhost:3000/signup2")
 });

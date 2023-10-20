@@ -27,11 +27,11 @@ compensationRouter
     validation(createCompensationSchema),
     createCompensation
   )
-  .get(authentication, authorization(Role.ADMIN || Role.COMPENSATION_DEPART), getAllCompensations);
+  .get(authentication, authorization(Role.ADMIN, Role.COMPENSATION_DEPART), getAllCompensations);
 
 compensationRouter
   .route("/:id")
-  .get(authentication, authorization(Role.ADMIN || Role.COMPANY || Role.INDIVIDUAL || Role.COMPENSATION_DEPART), validation(getCompensationSchema), getCompensation)
+  .get(authentication, authorization(Role.ADMIN, Role.COMPANY, Role.INDIVIDUAL, Role.COMPENSATION_DEPART), validation(getCompensationSchema), getCompensation)
   .delete(authentication, authorization(Role.ADMIN), validation(deleteCompensationSchema), deleteCompensation)
   .put(
     authentication, authorization(Role.ADMIN),

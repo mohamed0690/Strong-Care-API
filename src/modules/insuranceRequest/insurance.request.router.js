@@ -21,13 +21,13 @@ const insuranceRequestRouter = Router();
 
 insuranceRequestRouter
   .route("/")
-  .post(authentication, authorization(Role.COMPANY || Role.INDIVIDUAL), validation(createInsuranceRequestSchema), createInsuranceRequest)
-  .get(authentication, authorization(Role.ADMIN || Role.REQUESTS_DEPART), getAllInsuranceRequests);
+  .post(authentication, authorization(Role.COMPANY, Role.INDIVIDUAL), validation(createInsuranceRequestSchema), createInsuranceRequest)
+  .get(authentication, authorization(Role.ADMIN, Role.REQUESTS_DEPART), getAllInsuranceRequests);
 
 insuranceRequestRouter
   .route("/:id")
-  .get(authentication, authorization(Role.COMPANY || Role.INDIVIDUAL || Role.ADMIN || Role.REQUESTS_DEPART), validation(getInsuranceRequestSchema), getInsuranceRequest)
+  .get(authentication, authorization(Role.COMPANY, Role.INDIVIDUAL, Role.ADMIN, Role.REQUESTS_DEPART), validation(getInsuranceRequestSchema), getInsuranceRequest)
   .delete(authentication, authorization(Role.ADMIN), validation(deleteInsuranceRequestSchema), deleteInsuranceRequest)
-  .put(authentication, authorization(Role.COMPANY || Role.INDIVIDUAL), validation(updateInsuranceRequestSchema), updateInsuranceRequest);
+  .put(authentication, authorization(Role.COMPANY, Role.INDIVIDUAL), validation(updateInsuranceRequestSchema), updateInsuranceRequest);
 
 export default insuranceRequestRouter;

@@ -43,7 +43,7 @@ contractHardCopyRouter
     authorization(Role.ADMIN), validation(deleteContractHardCopySchema), deleteContractHardCopy)
   .put(
     authentication,
-    authorization(Role.COMPANY || Role.INDIVIDUAL),
+    authorization(Role.COMPANY, Role.INDIVIDUAL),
     uploadMixFile(
       [{ name: "contractHardCopyFile", maxCount: 1 }],
       "contractHardCopyFiles"

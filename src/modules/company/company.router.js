@@ -25,7 +25,7 @@ const companyRouter = Router();
 companyRouter
   .route("/")
   .post(
-    authentication, authorization(Role.ADMIN || Role.COMPANY),
+    authentication, authorization(Role.ADMIN, Role.COMPANY),
     uploadMixFile(
       [
         { name: "commercialRegisterImg", maxCount: 1 },
@@ -36,7 +36,7 @@ companyRouter
     validation(createCompanySchema),
     createCompany
   )
-  .get(authentication, authorization(Role.ADMIN || Role.REQUESTS_DEPART || Role.COMPENSATION_DEPART), getAllCompanies);
+  .get(authentication, authorization(Role.ADMIN, Role.REQUESTS_DEPART, Role.COMPENSATION_DEPART), getAllCompanies);
 
 companyRouter
   .route("/:id")

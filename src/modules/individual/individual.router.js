@@ -37,7 +37,7 @@ individualRouter
     validation(createIndividualSchema),
     createIndividual
   )
-  .get(authentication, authorization(Role.ADMIN || Role.REQUESTS_DEPART || Role.COMPENSATION_DEPART), getAllIndividuals);
+  .get(authentication, authorization(Role.ADMIN, Role.REQUESTS_DEPART, Role.COMPENSATION_DEPART), getAllIndividuals);
 
 individualRouter
   .route("/:id")

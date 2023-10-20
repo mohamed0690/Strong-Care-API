@@ -10,5 +10,6 @@ export const confirmEmail = catchAsyncError(async (req, res) => {
   let decoded = await jwt.verify(token, process.env.TOKEN_KEY);
   let email = decoded.recipientEmail;
   await User.findOneAndUpdate({ email }, { verifiedEmail: true });
+  // confirmed Email Successfully Template
   res.status(200).send(confirmedEmailSuccessfullyTemplate);
 });

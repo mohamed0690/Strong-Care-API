@@ -49,6 +49,7 @@ const sendVerificationEmail = (email) => {
   );
   sendEmail({ recipientEmail: email, emailSubject, emailContent });
 };
+// get logged user data
 export const loginUserDate = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
 

@@ -50,27 +50,15 @@ const sendVerificationEmail = (email) => {
   sendEmail({ recipientEmail: email, emailSubject, emailContent });
 };
 export const loginUserDate = catchAsyncError(async (req, res, next) => {
-  const { id } = req.body;
-  let existingUser = await Company.findOne({ user: id })
-  if (existingUser) {
-    return res
-      .status(200)
-      .json({ message: "success", data: existingUser });
-  }
-  existingUser = await Individual.findOne({ user: id })
-  if (existingUser) {
-    return res
-      .status(200)
-      .json({ message: "success", data: existingUser });
-  }
-  existingUser = await User.findOne({ _id: id })
-  if (existingUser) {
-    return res
-      .status(200)
-      .json({ message: "success", data: existingUser });
-  }
+  const { id } = req.params;
 
+  let existingUser = await Company.findOne({ user: id }) || await Individual.findOne({ user: id }) || await User.findOne({ _id: id });
+
+  if (existingUser) {
+    return res.status(200).json({ message: "success", data: existingUser });
+  }
 });
+
 
 export const signUp = catchAsyncError(async (req, res, next) => {
   const { email, latitude, longitude } = req.body;

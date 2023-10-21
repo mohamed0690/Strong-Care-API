@@ -20,6 +20,10 @@ const insuranceRequestSchema = mongoose.Schema(
       type: String,
       required: [true, "Device brand is required."],
     },
+    deviceModel :{
+      type: String,
+      required: [true, "Device Model is required."],
+    },
     deviceColor: {
       type: String,
       required: [true, "Device color is required."],

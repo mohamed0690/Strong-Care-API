@@ -10,6 +10,10 @@ export const createInsuranceRequestSchema = Joi.object({
     .min(3)
     .required()
     .description("Device brand is required."),
+  deviceModel: Joi.string()
+    .min(3)
+    .required()
+    .description("Device Model is required."),
   deviceColor: Joi.string()
     .min(3)
     .required()
@@ -52,6 +56,10 @@ export const updateInsuranceRequestSchema = Joi.object({
     .min(3)
     .required()
     .description("Device brand is required."),
+  deviceModel: Joi.string()
+    .min(3)
+    .required()
+    .description("Device Model is required."),
   deviceColor: Joi.string()
     .min(3)
     .required()

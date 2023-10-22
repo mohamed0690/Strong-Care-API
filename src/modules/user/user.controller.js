@@ -52,12 +52,16 @@ export const updateUser = catchAsyncError(async (req, res, next) => {
   if (!user) {
     return res.json({ message: "User not found" });
   }
+  const file = req.files["profileImg"];
 
-  const imageFields = ["profileImg"];
-  await updateImageUrls(req, imageFields, "users");
+  if (file) {
+    const imageFields = ["profileImg"];
+    await updateImageUrls(req, imageFields, "users");
 
-  const publicIdsToDelete = [user.profileImg.publicId];
-  await deletePreviousImages(publicIdsToDelete);
+    const publicIdsToDelete = [user.profileImg.publicId];
+    await deletePreviousImages(publicIdsToDelete);
+  }
+
   updateRecord(modelName, User, req, res);
 });
 

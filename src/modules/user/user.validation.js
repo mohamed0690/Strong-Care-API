@@ -89,10 +89,11 @@ export const getUserSchema = Joi.object({
 
 export const updateUserSchema = Joi.object({
   id: Joi.string().hex().length(24).required(),
-  firstName: Joi.string().trim().min(2).required(),
-  lastName: Joi.string().trim().min(2).required(),
+  firstName: Joi.string().trim().min(2),
+  lastName: Joi.string().trim().min(2),
+  role: Joi.string().valid(Role.ADMIN, Role.COMPENSATION_DEPART, Role.REQUESTS_DEPART),
+
   latitude: Joi.string()
-    .required()
     .custom((value, helpers) => {
       const latitude = parseFloat(value);
       if (isNaN(latitude) || latitude < -90 || latitude > 90) {
@@ -103,7 +104,6 @@ export const updateUserSchema = Joi.object({
       return latitude;
     }),
   longitude: Joi.string()
-    .required()
     .custom((value, helpers) => {
       const longitude = parseFloat(value);
       if (isNaN(longitude) || longitude < -180 || longitude > 180) {

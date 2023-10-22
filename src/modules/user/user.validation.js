@@ -7,6 +7,9 @@ export const createUserSchema = Joi.object({
   email: Joi.string().required().email(),
   phone: Joi.string().required(),
   password: Joi.string().required().min(8),
+  verified: Joi.boolean().default(false),
+  verifiedEmail: Joi.boolean().default(false),
+  verifiedPhone: Joi.boolean().default(false),
   profileImg: Joi.object({
     url: Joi.string()
       .uri({ scheme: ["http", "https"] })
@@ -47,9 +50,13 @@ export const createAdminUserSchema = Joi.object({
   email: Joi.string().required().email(),
   phone: Joi.string().required(),
   password: Joi.string().required().min(8),
+  verified: Joi.boolean().default(false),
+  verifiedEmail: Joi.boolean().default(false),
+  verifiedPhone: Joi.boolean().default(false),
   role: Joi.string()
     .valid(...Object.values(Role))
     .required(),
+
   profileImg: Joi.object({
     url: Joi.string()
       .uri({ scheme: ["http", "https"] })

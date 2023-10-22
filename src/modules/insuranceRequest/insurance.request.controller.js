@@ -1,5 +1,6 @@
 import { Company } from "../../../database/models/company.model.js";
 import { InsuranceRequest } from "../../../database/models/insurance.request.model.js";
+import { HttpStatus } from "../../../enums/httpStatus.js";
 import { catchAsyncError } from "../../../middleware/catchAsyncError.js";
 import {
   createRecord,
@@ -39,7 +40,7 @@ export const getAllInsuranceRequests = getAllWithApiFeatures(
   "company"
 );
 
-export const updateInsuranceRequest =  catchAsyncError(async (req, res) => {
+export const updateInsuranceRequest = catchAsyncError(async (req, res) => {
   const { id } = req.params;
   const insuranceRequest = await InsuranceRequest.findById(id);
 
@@ -64,4 +65,13 @@ export const deleteInsuranceRequest = catchAsyncError(
 );
 export const getInsuranceRequest = async (req, res) => {
   getRecord(modelName, InsuranceRequest, req, res);
+};
+
+export const getInsuranceRequestByInsuranceNo = async (req, res) => {
+  const selectedObj = await InsuranceRequest.findOne({ insuranceNo: req.params.insuranceNo });
+  if (!selectedObj) {
+    res.status(HttpStatus.NotFound).send({ message: `${modelName} not found` });
+  } else {
+    res.send({ message: "success", data: selectedObj });
+  }
 };

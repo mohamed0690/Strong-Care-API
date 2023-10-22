@@ -91,3 +91,8 @@ export const updateInsuranceRequestSchema = Joi.object({
 export const deleteInsuranceRequestSchema = Joi.object({
   id: Joi.string().hex().length(24).required(),
 });
+
+
+export const getInsuranceRequestByInsuranceNoSchema = Joi.object({
+  insuranceNo: Joi.string().length(10).required(),
+})

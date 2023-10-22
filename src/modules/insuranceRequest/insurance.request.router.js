@@ -5,11 +5,13 @@ import {
   deleteInsuranceRequest,
   getAllInsuranceRequests,
   getInsuranceRequest,
+  getInsuranceRequestByInsuranceNo,
   updateInsuranceRequest,
 } from "./insurance.request.controller.js";
 import {
   createInsuranceRequestSchema,
   deleteInsuranceRequestSchema,
+  getInsuranceRequestByInsuranceNoSchema,
   getInsuranceRequestSchema,
   updateInsuranceRequestSchema,
 } from "./insurance.request.validation.js";
@@ -29,5 +31,6 @@ insuranceRequestRouter
   .get(authentication, authorization(Role.COMPANY, Role.INDIVIDUAL, Role.ADMIN, Role.REQUESTS_DEPART), validation(getInsuranceRequestSchema), getInsuranceRequest)
   .delete(authentication, authorization(Role.ADMIN), validation(deleteInsuranceRequestSchema), deleteInsuranceRequest)
   .put(authentication, authorization(Role.COMPANY, Role.INDIVIDUAL), validation(updateInsuranceRequestSchema), updateInsuranceRequest);
+insuranceRequestRouter.route("/insurance/:insuranceNo").get(validation(getInsuranceRequestByInsuranceNoSchema), getInsuranceRequestByInsuranceNo)
 
 export default insuranceRequestRouter;

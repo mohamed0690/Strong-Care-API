@@ -52,15 +52,39 @@ export const updateCompany = async (req, res) => {
   if (!company) {
     return res.json({ message: "Company not found" });
   }
+  if (req.files["commercialRegisterImg"] && req.files["identityImg"]) {
+    let imageFields = ["commercialRegisterImg", "identityImg"];
 
-  const imageFields = ["commercialRegisterImg", "identityImg"];
-  await updateImageUrls(req, imageFields, "companies");
+    await updateImageUrls(req, imageFields, "companies");
 
-  const publicIdsToDelete = [
-    company.commercialRegisterImg.publicId,
-    company.identityImg.publicId,
-  ];
-  await deletePreviousImages(publicIdsToDelete);
+    const publicIdsToDelete = [
+      company.commercialRegisterImg.publicId,
+      company.identityImg.publicId,
+    ];
+    await deletePreviousImages(publicIdsToDelete);
+  }
+  else if (req.files["commercialRegisterImg"]) {
+    let imageFields = ["commercialRegisterImg", "identityImg"];
+
+    await updateImageUrls(req, imageFields, "companies");
+
+    const publicIdsToDelete = [
+      company.commercialRegisterImg.publicId,
+      company.identityImg.publicId,
+    ];
+    await deletePreviousImages(publicIdsToDelete);
+  }
+  else if (req.files["identityImg"]) {
+    let imageFields = ["commercialRegisterImg", "identityImg"];
+
+    await updateImageUrls(req, imageFields, "companies");
+
+    const publicIdsToDelete = [
+      company.commercialRegisterImg.publicId,
+      company.identityImg.publicId,
+    ];
+    await deletePreviousImages(publicIdsToDelete);
+  }
 
   updateRecord(modelName, Company, req, res);
 };

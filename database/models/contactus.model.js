@@ -14,7 +14,7 @@ const contactUsSchema = new mongoose.Schema(
         email: {
             type: String,
             required: [true, "Email is required."],
-            unique: [true, "Email is already in use."],
+
         },
         phone: {
             type: String,

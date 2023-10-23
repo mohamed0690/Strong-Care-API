@@ -18,6 +18,11 @@ const orderSchema = mongoose.Schema(
       required: [true, "Payment status is required."],
       default: false,
     },
+    price: {
+      type: Number,
+      required: [true, "Payment price is required."],
+      default: false,
+    },
   },
   { timestamps: true }
 );

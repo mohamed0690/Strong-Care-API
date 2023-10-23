@@ -10,7 +10,7 @@ import insuranceRequestRouter from "./insuranceRequest/insurance.request.router.
 import compensationRouter from "./compensation/compensation.router.js";
 import contractHardCopyRouter from "./contractHardCopy/contractHardCopy.router.js";
 import contactUsRouter from "./contactus/contactus.router.js";
-
+import statisticsRouter from "./statistics/statistics.router.js";
 export function init(app) {
   app.use("/api/v1/confirmEmail", confirmEmailRouter);
   app.use("/api/v1/users/department", departmentRouter);
@@ -22,6 +22,7 @@ export function init(app) {
   app.use("/api/v1/auth", authRouter);
   app.use("/api/v1/users", userRouter);
   app.use("/api/v1/contactus", contactUsRouter);
+  app.use("/api/v1/statistics", statisticsRouter)
 
   app.all("*", (req, res, next) => {
     next(

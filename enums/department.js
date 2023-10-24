@@ -1,4 +1,4 @@
 export const Department = {
-  INSURANCE_REQUEST: "insuranceRequest",
-  COMPENSATION: "compensation",
+  INSURANCE_REQUEST: "insuranceRequestsDepart",
+  COMPENSATION: "compensationDepart",
 };

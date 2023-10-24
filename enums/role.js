@@ -3,5 +3,5 @@ export const Role = {
   INDIVIDUAL: "individual",
   COMPANY: "company",
   COMPENSATION_DEPART: "compensationDepart",
-  REQUESTS_DEPART: "requestsDepart",
+  REQUESTS_DEPART: "insuranceRequestsDepart",
 };

@@ -2,6 +2,6 @@ export const Role = {
   ADMIN: "admin",
   INDIVIDUAL: "individual",
   COMPANY: "company",
-  COMPENSATION_DEPART: "compensation-depart",
-  REQUESTS_DEPART: "requests-depart",
+  COMPENSATION_DEPART: "compensationDepart",
+  REQUESTS_DEPART: "requestsDepart",
 };

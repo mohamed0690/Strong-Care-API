@@ -75,3 +75,16 @@ export const getInsuranceRequestByInsuranceNo = async (req, res) => {
     res.send({ message: "success", data: selectedObj });
   }
 };
+
+export const changeStateOfInsuranceRequest = async (req, res) => {
+  const { id } = req.params;
+  const insuranceRequest = await InsuranceRequest.findById(id);
+
+  if (!insuranceRequest) {
+    return res.json({ message: "Insurance Request not found" });
+  }
+
+  insuranceRequest.state = req.body.state;
+  await insuranceRequest.save();
+  res.json({ message: "success", data: insuranceRequest });
+};

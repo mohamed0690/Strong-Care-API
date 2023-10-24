@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { InsuranceDuration } from "../../enums/insuranceDuration.js";
+import { State } from "../../enums/State.js";
 function validateIdentificationNo(value) {
   return value.length === 10;
 }
@@ -42,6 +43,12 @@ const insuranceRequestSchema = mongoose.Schema(
       type: String,
       enum: Object.values(InsuranceDuration),
       required: [true, "Insurance duration is required."],
+    },
+    state: {
+      type: String,
+      enum: Object.values(State),
+      default: State.PENDING,
+      required: true,
     },
     company: {
       type: mongoose.Schema.Types.ObjectId,

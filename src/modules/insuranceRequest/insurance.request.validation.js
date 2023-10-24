@@ -1,5 +1,6 @@
 import Joi from "joi";
 import { InsuranceDuration } from "../../../enums/insuranceDuration.js";
+import { State } from "../../../enums/State.js";
 
 export const createInsuranceRequestSchema = Joi.object({
   clientName: Joi.string()
@@ -96,3 +97,14 @@ export const deleteInsuranceRequestSchema = Joi.object({
 export const getInsuranceRequestByInsuranceNoSchema = Joi.object({
   insuranceNo: Joi.string().length(10).required(),
 })
+
+export const changeStateOfInsuranceRequestSchema = Joi.object({
+  id: Joi.string().hex().length(24).required(),
+  state: Joi.string()
+    .valid(...Object.values(State))
+    .default(State.PENDING)
+    .required()
+    .description(
+      "State is required and should be one of the valid State values."
+    ),
+});

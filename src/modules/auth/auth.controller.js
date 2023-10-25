@@ -8,9 +8,9 @@ import {
 } from "../../../utils/generateToken.js";
 import { HttpStatus } from "../../../enums/httpStatus.js";
 import { sendEmail } from "../../../utils/sendEmail.js";
-import { resetPasswordTemplate } from "../../../utils/restPasswordTemplete.html.js";
+import { resetPasswordTemplate } from "../../../templates/restPasswordTemplete.html.js";
 import { updateImageUrls } from "../../../utils/updateImageUrl.js";
-import { emailTemplate } from "../../../utils/confirmEmailTemplete.html.js";
+import { emailTemplate } from "../../../templates/confirmEmailTemplete.html.js";
 import { Company } from "../../../database/models/company.model.js";
 import { Individual } from "../../../database/models/Individual.model.js";
 

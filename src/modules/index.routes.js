@@ -1,6 +1,6 @@
 import { HttpStatus } from "../../enums/httpStatus.js";
 import { AppError } from "../../utils/appError.js";
-import confirmEmailRouter from "./confirmEmail/confirm.email.router.js";
+import emailRouter from "./email/send.email.router.js";
 import userRouter from "./user/user.router.js";
 import authRouter from "./auth/auth.router.js";
 import companyRouter from "./company/company.router.js";
@@ -12,7 +12,7 @@ import contractHardCopyRouter from "./contractHardCopy/contractHardCopy.router.j
 import contactUsRouter from "./contactus/contactus.router.js";
 import statisticsRouter from "./statistics/statistics.router.js";
 export function init(app) {
-  app.use("/api/v1/confirmEmail", confirmEmailRouter);
+  app.use("/api/v1/confirmEmail", emailRouter);
   app.use("/api/v1/users/department", departmentRouter);
   app.use("/api/v1/users/individual", individualRouter);
   app.use("/api/v1/insuranceRequest", insuranceRequestRouter);

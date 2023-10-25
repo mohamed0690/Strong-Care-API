@@ -6,7 +6,7 @@ import {
   deletePreviousImages,
   uploadAndUpdateImage,
 } from "../../../utils/cloudinaryAPI.js";
-import { emailTemplate } from "../../../utils/confirmEmailTemplete.html.js";
+import { emailTemplate } from "../../../templates/confirmEmailTemplete.html.js";
 import {
   createRecord,
   deleteRecord,

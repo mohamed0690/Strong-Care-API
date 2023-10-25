@@ -3,8 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import dbConnection from "./database/dbConnection.js";
 import { init } from "./src/modules/index.routes.js";
-import { apiDocumentationTemplate } from "./utils/apiDocomentaion.html.js";
-import { statistics } from "./database/statistics.js";
+import { apiDocumentationTemplate } from "./templates/apiDocomentaion.html.js";
 
 dotenv.config();
 const app = express();

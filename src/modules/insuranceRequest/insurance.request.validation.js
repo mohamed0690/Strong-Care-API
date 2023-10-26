@@ -107,4 +107,17 @@ export const changeStateOfInsuranceRequestSchema = Joi.object({
     .description(
       "State is required and should be one of the valid State values."
     ),
+  to: Joi.string().email().required(),
+  subject: Joi.string().required(),
+  message: Joi.string().required(),
+  fileLink: Joi.string(),
+}).when(Joi.object({
+  state: Joi.string().valid('approved').required()
+}), {
+  then: Joi.object({
+    fileLink: Joi.string().required()
+  }),
+  otherwise: Joi.object({
+    fileLink: Joi.string()
+  })
 });

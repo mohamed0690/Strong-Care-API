@@ -2,6 +2,8 @@ import { Company } from "../../../database/models/company.model.js";
 import { InsuranceRequest } from "../../../database/models/insurance.request.model.js";
 import { HttpStatus } from "../../../enums/httpStatus.js";
 import { catchAsyncError } from "../../../middleware/catchAsyncError.js";
+import { requestInsuranceApprovalTemplate } from "../../../templates/requestInsuaranseAprovedTemplate.html.js";
+import { rejectInsuranceRejectedTemplate } from "../../../templates/requestInsuaranseRejectedTemplate.html.js";
 import {
   createRecord,
   deleteRecord,
@@ -10,6 +12,7 @@ import {
 } from "../../../utils/crudFactory.js";
 import { generateUniqueIdentificationNo } from "../../../utils/generateIdNo.js";
 import { getAllWithApiFeatures } from "../../../utils/getAllWithApiFeatures.js";
+import { sendEmail } from "../../../utils/sendEmail.js";
 const modelName = "InsuranceRequest";
 export const createInsuranceRequest = catchAsyncError(async (req, res) => {
   const { serialNo, company } = req.body;
@@ -79,12 +82,17 @@ export const getInsuranceRequestByInsuranceNo = async (req, res) => {
 export const changeStateOfInsuranceRequest = async (req, res) => {
   const { id } = req.params;
   const insuranceRequest = await InsuranceRequest.findById(id);
+  const { to, subject, message, fileLink, state } = req.body;
 
   if (!insuranceRequest) {
     return res.json({ message: "Insurance Request not found" });
   }
 
-  insuranceRequest.state = req.body.state;
+  insuranceRequest.state = state;
   await insuranceRequest.save();
   res.json({ message: "success", data: insuranceRequest });
+  let htmlTemplate = (state === "approved") ? requestInsuranceApprovalTemplate : rejectInsuranceRejectedTemplate;
+  htmlTemplate
+  sendEmail({ recipientEmail: to, emailSubject: subject, emailContent: htmlTemplate(message, fileLink) });
+
 };

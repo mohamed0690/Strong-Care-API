@@ -1,5 +1,4 @@
 import Joi from "joi";
-import { Role } from "../../../enums/role.js";
 
 export const createContactUsSchema = Joi.object({
   name: Joi.string()
@@ -9,7 +8,7 @@ export const createContactUsSchema = Joi.object({
     .description('Name must be a string, at least 2 characters long'),
 
   email: Joi.string()
-    .email({ tlds: { allow: false } })
+    .email()
     .required()
     .description('Email must be a valid email address'),
 
@@ -38,7 +37,7 @@ export const updateContactUsSchema = Joi.object({
     .description('Name must be a string, at least 2 characters long'),
 
   email: Joi.string()
-    .email({ tlds: { allow: false } })
+    .email()
     .required()
     .description('Email must be a valid email address'),
 

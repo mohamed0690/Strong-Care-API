@@ -41,6 +41,8 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
   await sendEmail({ recipientEmail: email, emailSubject, emailContent });
   return res.status(200).send({ message: "success" });
 });
+
+
 const sendVerificationEmail = (email) => {
   const emailSubject = "Verify Email Strong Care";
   const emailContent = emailTemplate(
@@ -49,7 +51,6 @@ const sendVerificationEmail = (email) => {
   );
   sendEmail({ recipientEmail: email, emailSubject, emailContent });
 };
-// get logged user data
 export const loginUserDate = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
 

@@ -92,7 +92,7 @@ export const changeUserPassword = catchAsyncError(async (req, res, next) => {
   user.password = req.body.password;
   user.changePasswordAt = Date.now();
   await user.save();
-  res.json({ message: "Password changed successfully", user });
+  res.json({ message: "success" });
 });
 
 export const changeUserPhone = async (req, res, next) => {

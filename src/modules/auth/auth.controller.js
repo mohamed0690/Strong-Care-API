@@ -8,11 +8,11 @@ import {
 } from "../../../utils/generateToken.js";
 import { HttpStatus } from "../../../enums/httpStatus.js";
 import { sendEmail } from "../../../utils/sendEmail.js";
-import { resetPasswordTemplate } from "../../../templates/restPasswordTemplete.html.js";
 import { updateImageUrls } from "../../../utils/updateImageUrl.js";
 import { emailTemplate } from "../../../templates/confirmEmailTemplete.html.js";
 import { Company } from "../../../database/models/company.model.js";
 import { Individual } from "../../../database/models/Individual.model.js";
+import { resetPasswordTemplate } from "../../../templates/restPasswordTemplete.html.js";
 
 export const signIn = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
@@ -36,7 +36,7 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
 
   const emailSubject = "Reset Password";
   const emailContent = resetPasswordTemplate(
-    generateTokenExpiredAfterTenMins({ recipientEmail: email })
+    generateTokenExpiredAfterTenMins({ id: user._id })
   );
   await sendEmail({ recipientEmail: email, emailSubject, emailContent });
   return res.status(200).send({ message: "success" });

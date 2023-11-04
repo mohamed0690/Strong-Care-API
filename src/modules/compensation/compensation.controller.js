@@ -32,9 +32,7 @@ export const createCompensation = catchAsyncError(async (req, res, next) => {
   req.body.malfunctionImgs = req.files.malfunctionImgs.map(
     (img) => img.filename
   );
-  req.body.malfunctionImgs = req.files.malfunctionImgs.map(
-    (img) => img.filename
-  );
+
 
   const imageFields = ["malfunctionImgs"];
   await updateImagesUrls(req, imageFields, "compensations");

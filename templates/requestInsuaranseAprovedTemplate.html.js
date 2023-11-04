@@ -99,7 +99,7 @@ export const requestInsuranceApprovalTemplate = (message, fileLink) => `
                 ${message} 
                 </p>
                 <div id="read-more">
-                    <a href="#">اطلع على عقد الضمان الخاص بك الان/a>
+                    <a href="http://localhost:3000/">اطلع على عقد الضمان الخاص بك الان</a>
                 </div>
                 <div align="center">
                     <a href="${fileLink}" download>اضغط هنا لتنزيل الضمان الخاص بالعميل</a>

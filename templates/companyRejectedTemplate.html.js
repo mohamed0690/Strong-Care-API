@@ -99,7 +99,7 @@ export const companyRejectedTemplate = (message) => `
                    ${message}
                 </p>
                 <div id="read-more">
-                    <a href="#"
+                    <a href="http://localhost:3000/contactus"
                         style="background-color: #e74c3c; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold;">تواصل
                         معنا</a>
                 </div>

@@ -99,7 +99,7 @@ export const companyApprovedTemplate = (message, fileLink) => `
                 ${message} 
                 </p>
                 <div id="read-more">
-                    <a href="#"
+                    <a href="http://localhost:3000">
                         إلى موقعنا الآن</a>
                 </div>
                 <div align="center">

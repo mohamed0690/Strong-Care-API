@@ -5,7 +5,7 @@ export const createCompensationSchema = Joi.object({
     .min(30)
     .required()
     .description("description malfunction must be more than 30 characters."),
-  malfunctionImgs: Joi.required()
+  Images: Joi.required()
     .description("Array of malfunction images"),
 
   InsuranceRequestNo: Joi.string()
@@ -23,7 +23,7 @@ export const updateCompensationSchema = Joi.object({
     .min(30)
     .required()
     .description("description malfunction must be more than 30 characters."),
-  malfunctionImgs: Joi.required()
+  Images: Joi.required()
     .description("Array of malfunction images"),
 });
 export const deleteCompensationSchema = Joi.object({

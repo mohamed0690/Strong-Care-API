@@ -99,7 +99,7 @@ export const companyApprovedTemplate = (message, fileLink) => `
                 ${message} 
                 </p>
                 <div id="read-more">
-                    <a href="http://localhost:3000">
+                    <a href="https://strong-care-front-dev.vercel.app/">
                         إلى موقعنا الآن</a>
                 </div>
                 <div align="center">

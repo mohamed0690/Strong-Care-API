@@ -38,7 +38,7 @@ export const resetPasswordTemplate = (token) => `
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                         لا يمكننا ببساطة إرسال كلمة المرور القديمة إليك. تم إنشاء رابط فريد لإعادة تعيين كلمة المرور الخاصة بك. لإعادة تعيين كلمة المرور الخاصة بك، انقر على الرابط التالي واتبع التعليمات.
                                     </p>
-                                    <a href="http://localhost:3000/confirmpassword/${token}"
+                                    <a href="https://strong-care-front-dev.vercel.app//confirmpassword/${token}"
                                         style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">إعادة تعيين كلمة المرور</a>
                                 </td>
                             </tr>

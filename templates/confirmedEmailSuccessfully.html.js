@@ -98,7 +98,7 @@ export const confirmedEmailSuccessfullyTemplate = `<!DOCTYPE html>
             </div>
             <div class="header">Awesome!</div>
             <div class="message">Your email has been confirmed.</div>
-            <a href="http://localhost:3000/signup2" class="btn">Complete Registration</a>
+            <a href="https://strong-care-front-dev.vercel.app//signup2" class="btn">Complete Registration</a>
         </div>
     </div>
 </body>
